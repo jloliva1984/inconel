@@ -26,7 +26,6 @@ use CodeIgniter\Session\Session;
 use Config\Cookie as CookieConfig;
 use Config\Security as SecurityConfig;
 use ErrorException;
-use SensitiveParameter;
 
 /**
  * Class Security
@@ -281,11 +280,10 @@ class Security implements SecurityInterface
     {
         assert($request instanceof Request);
 
-        $superglobals = service('superglobals');
-        if ($superglobals->post($this->config->tokenName) !== null) {
+        if (isset($_POST[$this->config->tokenName])) {
             // We kill this since we're done and we don't want to pollute the POST array.
-            $superglobals->unsetPost($this->config->tokenName);
-            $request->setGlobal('post', $superglobals->getPostArray());
+            unset($_POST[$this->config->tokenName]);
+            $request->setGlobal('post', $_POST);
         } else {
             $body = $request->getBody() ?? '';
             $json = json_decode($body);
@@ -373,13 +371,13 @@ class Security implements SecurityInterface
      *
      * @throws InvalidArgumentException "hex2bin(): Hexadecimal input string must have an even length"
      */
-    protected function derandomize(#[SensitiveParameter] string $token): string
+    protected function derandomize(string $token): string
     {
         $key   = substr($token, -static::CSRF_HASH_BYTES * 2);
         $value = substr($token, 0, static::CSRF_HASH_BYTES * 2);
 
         try {
-            return bin2hex((string) hex2bin($value) ^ (string) hex2bin($key));
+            return bin2hex(hex2bin($value) ^ hex2bin($key));
         } catch (ErrorException $e) {
             // "hex2bin(): Hexadecimal input string must have an even length"
             throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);

@@ -823,12 +823,8 @@ class Validation implements ValidationInterface
                             continue;
                         }
 
-                        // Replace the placeholder in the current rule string
-                        if (str_starts_with($row, 'regex_match[')) {
-                            $row = str_replace('{{' . $field . '}}', (string) $data[$field], $row);
-                        } else {
-                            $row = str_replace('{' . $field . '}', (string) $data[$field], $row);
-                        }
+                        // Replace the placeholder in the rule
+                        $ruleSet = str_replace('{' . $field . '}', (string) $data[$field], $ruleSet);
                     }
                 }
             }
@@ -844,13 +840,7 @@ class Validation implements ValidationInterface
      */
     private function retrievePlaceholders(string $rule, array $data): array
     {
-        if (str_starts_with($rule, 'regex_match[')) {
-            // For regex_match rules, only look for double-bracket placeholders
-            preg_match_all('/\{\{((?:(?![{}]).)+?)\}\}/', $rule, $matches);
-        } else {
-            // For all other rules, use single-bracket placeholders
-            preg_match_all('/{(.+?)}/', $rule, $matches);
-        }
+        preg_match_all('/{(.+?)}/', $rule, $matches);
 
         return array_intersect($matches[1], array_keys($data));
     }
