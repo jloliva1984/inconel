@@ -1,68 +1,55 @@
 <?php
 
-/**
- * CodeIgniter
- *
- * Inconel Building - Sistema de Gestión de Viviendas y Garantías
- *
- * @link    https://codeigniter.com
- * @since   Version 4.0.0
- */
+use CodeIgniter\Boot;
+use Config\Paths;
 
 /*
  *---------------------------------------------------------------
- * SETUP OUR PATH CONSTANTS
+ * CHECK PHP VERSION
  *---------------------------------------------------------------
- *
- * The path constants provide convenient access to the folders
- * throughout the application. We have to setup them up here,
- * so they are available in all of the config files.
  */
 
-// The path to the `app` directory.
-if (! defined('APPPATH')) {
-    define('APPPATH', realpath(__DIR__ . '/../app') . DIRECTORY_SEPARATOR);
+$minPhpVersion = '8.1';
+if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
+    $message = sprintf(
+        'Your PHP version must be %s or higher to run CodeIgniter. Current version: %s',
+        $minPhpVersion,
+        PHP_VERSION,
+    );
+
+    header('HTTP/1.1 503 Service Unavailable.', true, 503);
+    echo $message;
+
+    exit(1);
 }
 
-// The path to the `system` directory.
-if (! defined('SYSTEMPATH')) {
-    define('SYSTEMPATH', realpath(__DIR__ . '/../vendor/codeigniter4/framework/system') . DIRECTORY_SEPARATOR);
-}
+/*
+ *---------------------------------------------------------------
+ * SET THE CURRENT DIRECTORY
+ *---------------------------------------------------------------
+ */
 
-// The path to the `writable` directory.
-if (! defined('WRITEPATH')) {
-    define('WRITEPATH', realpath(__DIR__ . '/../writable') . DIRECTORY_SEPARATOR);
-}
+// Path to the front controller (this file)
+define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
-// The path to the `tests` directory
-if (! defined('TESTPATH')) {
-    define('TESTPATH', realpath(__DIR__ . '/../tests') . DIRECTORY_SEPARATOR);
+// Ensure the current directory is pointing to the front controller's directory
+if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
+    chdir(FCPATH);
 }
 
 /*
  *---------------------------------------------------------------
  * BOOTSTRAP THE APPLICATION
  *---------------------------------------------------------------
- * This process sets up the path constants, loads and registers
- * our autoloader, along with Composer's, loads our Routes file,
- * and gets us going.
  */
 
-// Ensure the current directory is pointing to the front controller's directory
-// This is needed for security reasons as CodeIgniter.
-if (getcwd() . DIRECTORY_SEPARATOR !== __DIR__ . DIRECTORY_SEPARATOR) {
-    chdir(__DIR__);
-}
+// LOAD OUR PATHS CONFIG FILE
+require FCPATH . '../app/Config/Paths.php';
+// ^^^ Change this line if you move your application folder
 
-// Load our paths config file.
-// This is the line that might need to be changed, depending on your folder structure.
-$pathsConfig = APPPATH . 'Config/Paths.php';
-// ^^^ Change this if you move your application folder
+$paths = new Paths();
 
-require realpath($pathsConfig) ?: $pathsConfig;
+// LOAD THE FRAMEWORK BOOTSTRAP FILE
+require $paths->systemDirectory . '/Boot.php';
 
-// @phpstan-ignore-next-line
-$app = require realpath(SYSTEMPATH . 'bootstrap.php') ?: SYSTEMPATH . 'bootstrap.php';
-
-// @phpstan-ignore-next-line
-$app->run();
+exit(Boot::bootWeb($paths));

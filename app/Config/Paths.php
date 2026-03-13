@@ -3,59 +3,41 @@
 namespace Config;
 
 /**
- * -----------------------------------------------------------------------
- * SYSTEM FOLDER NAME
- * -----------------------------------------------------------------------
+ * Paths
+ *
+ * Holds the paths used by the system to locate the main directories.
+ * NOTE: This class is required prior to Autoloader instantiation,
+ *       and does NOT extend BaseConfig.
  */
 class Paths
 {
     /**
-     * -----------------------------------------------------------------------
-     * SYSTEM FOLDER NAME
-     * -----------------------------------------------------------------------
-     *
-     * This variable must contain the name of your "system" folder.
-     * Set the path if it is not in the same folder as this file.
+     * Path to the system directory.
      */
     public string $systemDirectory = __DIR__ . '/../../vendor/codeigniter4/framework/system';
 
     /**
-     * -----------------------------------------------------------------------
-     * APPLICATION FOLDER NAME
-     * -----------------------------------------------------------------------
-     *
-     * If you want this front controller to use a different "app" folder
-     * than the default, set its full server path here. This MUST have
-     * a trailing slash.
+     * Path to the application directory.
      */
     public string $appDirectory = __DIR__ . '/..';
 
     /**
-     * -----------------------------------------------------------------------
-     * WRITABLE DIRECTORY NAME
-     * -----------------------------------------------------------------------
-     *
-     * This is the directory that CodeIgniter will use for "writable" files.
-     * As you can see, it is grouped with all of the other paths.
+     * Path to the writable directory.
      */
     public string $writableDirectory = __DIR__ . '/../../writable';
 
     /**
-     * -----------------------------------------------------------------------
-     * TESTS DIRECTORY NAME
-     * -----------------------------------------------------------------------
-     *
-     * This is where all of the system tests for CodeIgniter itself are stored.
+     * Path to the tests directory.
      */
     public string $testsDirectory = __DIR__ . '/../../tests';
 
     /**
-     * -----------------------------------------------------------------------
-     * PROJECT ROOT
-     * -----------------------------------------------------------------------
-     *
-     * The path to the project root. This is where the `composer.json` file
-     * lives.
+     * Path to the views directory.
      */
-    public string $projectDirectory = __DIR__ . '/../..';
+    public string $viewDirectory = __DIR__ . '/../Views';
+
+    /**
+     * Path to the directory containing .env file.
+     */
+    public string $envDirectory = __DIR__ . '/../../';
 }
