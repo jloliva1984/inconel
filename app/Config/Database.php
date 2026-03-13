@@ -24,7 +24,7 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
+        'hostname'     => '127.0.0.1',
         'username'     => 'root',
         'password'     => '',
         'database'     => 'inconel_db',
@@ -48,7 +48,7 @@ class Database extends Config
      */
     public array $tests = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
+        'hostname'     => '127.0.0.1',
         'username'     => 'root',
         'password'     => '',
         'database'     => 'inconel_test',
