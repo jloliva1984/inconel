@@ -9,9 +9,11 @@ class Dashboard extends BaseController
 {
     protected UsuarioModel $usuarioModel;
     protected ViviendaModel $viviendaModel;
+    protected \CodeIgniter\Database\BaseConnection $db;
 
     public function __construct()
     {
+        $this->db            = \Config\Database::connect();
         $this->usuarioModel  = new UsuarioModel();
         $this->viviendaModel = new ViviendaModel();
     }
