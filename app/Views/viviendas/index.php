@@ -63,6 +63,11 @@ $(function() {
         ajax: {
             url: '<?= site_url('viviendas/datatable') ?>',
             type: 'GET',
+            error: function(xhr) {
+                if (xhr.status === 401) {
+                    window.location.href = '<?= site_url('login') ?>';
+                }
+            }
         },
         columns: [
             { data: 'id', className: 'text-center', width: '50px' },

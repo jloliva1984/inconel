@@ -55,6 +55,9 @@ $(function() {
         ajax: {
             url: '<?= site_url('reportes/por-tecnico-datatable') ?>',
             type: 'GET',
+            error: function(xhr) {
+                if (xhr.status === 401) { window.location.href = '<?= site_url('login') ?>'; }
+            }
         },
         columns: [
             { data: 'tecnico_id', className: 'text-center', width: '50px' },
