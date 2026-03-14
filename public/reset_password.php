@@ -1,64 +1,84 @@
 <?php
-/**
- * ONE-TIME password reset script — DELETE AFTER USE
- * Visit: https://yourdomain.com/reset_password.php?key=InconelReset2024
- */
+// Reset admin password directly via PDO
+// DELETE THIS FILE AFTER USE
 
-if (($_GET['key'] ?? '') !== 'InconelReset2024') {
-    http_response_code(403);
-    die('Access denied.');
+$host = '';
+$db   = '';
+$user = '';
+$pass = '';
+$port = 3306;
+
+// Load .env
+$envFile = __DIR__ . '/../.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos($line, '#') === 0) continue;
+        if (strpos($line, '=') === false) continue;
+        [$key, $val] = explode('=', $line, 2);
+        $key = trim($key);
+        $val = trim($val, " \t\n\r\0\x0B\"'");
+        switch ($key) {
+            case 'database.default.hostname': $host = $val; break;
+            case 'database.default.database': $db   = $val; break;
+            case 'database.default.username': $user = $val; break;
+            case 'database.default.password': $pass = $val; break;
+            case 'database.default.port':     $port = (int)$val; break;
+        }
+    }
 }
 
-define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
-chdir(dirname(__DIR__));
-require FCPATH . '../vendor/autoload.php';
-
-$app = \Config\Services::codeigniter();
-$app->initialize();
-
-$db  = \Config\Database::connect();
-$now = date('Y-m-d H:i:s');
-
-echo '<pre style="font-family:monospace;padding:20px">';
-
-// Show current state of admin user
-$user = $db->table('usuarios')->where('email', 'admin@inconel.com')->get()->getRowArray();
-
-if (! $user) {
-    echo "ERROR: No existe usuario con email admin@inconel.com\n";
-    echo '</pre>';
-    exit;
-}
-
-echo "=== Usuario encontrado ===\n";
-echo "ID:     {$user['id']}\n";
-echo "Nombre: {$user['nombre']}\n";
-echo "Email:  {$user['email']}\n";
-echo "Rol:    {$user['rol']}\n";
-echo "Activo: {$user['activo']}\n";
-echo "Password actual (primeros 20 chars): " . substr($user['password'], 0, 20) . "...\n";
-echo "¿Es bcrypt válido? " . (str_starts_with($user['password'], '$2') ? "SÍ ✓" : "NO ✗ — estaba en texto plano o MD5") . "\n\n";
-
-// Reset password
 $newPassword = 'Admin@123';
-$hash        = password_hash($newPassword, PASSWORD_BCRYPT);
+$newHash     = password_hash($newPassword, PASSWORD_BCRYPT);
 
-$db->table('usuarios')
-   ->where('email', 'admin@inconel.com')
-   ->update([
-       'password'   => $hash,
-       'activo'     => 1,
-       'updated_at' => $now,
-   ]);
+echo "<pre>";
+echo "Configuracion BD:\n";
+echo "  Host: $host\n";
+echo "  DB:   $db\n";
+echo "  User: $user\n\n";
 
-echo "=== Contraseña reseteada ===\n";
-echo "Email:      admin@inconel.com\n";
-echo "Contraseña: {$newPassword}\n";
-echo "Hash nuevo: " . substr($hash, 0, 30) . "...\n\n";
+try {
+    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Verify
-$verify = password_verify($newPassword, $hash);
-echo "Verificación: " . ($verify ? "✓ CORRECTA" : "✗ ERROR") . "\n\n";
+    $stmt = $pdo->query("SELECT id, email, password FROM usuarios WHERE email = 'admin@inconel.com' LIMIT 1");
+    $row  = $stmt->fetch(PDO::FETCH_ASSOC);
 
-echo "⚠ Inicia sesión y ELIMINA este archivo del servidor.\n";
-echo '</pre>';
+    if (!$row) {
+        echo "ERROR: Usuario admin@inconel.com NO encontrado\n";
+        exit;
+    }
+
+    echo "Usuario encontrado:\n";
+    echo "  ID:    {$row['id']}\n";
+    echo "  Email: {$row['email']}\n";
+    echo "  Hash actual: {$row['password']}\n\n";
+
+    $isValidBcrypt = (substr($row['password'], 0, 4) === '$2y$' || substr($row['password'], 0, 4) === '$2a$');
+    echo "El hash actual es bcrypt? " . ($isValidBcrypt ? "SI" : "NO (ese es el problema)") . "\n\n";
+
+    $update = $pdo->prepare("UPDATE usuarios SET password = ?, updated_at = NOW() WHERE email = 'admin@inconel.com'");
+    $update->execute([$newHash]);
+
+    echo "Contrasena actualizada correctamente\n";
+    echo "  Nueva contrasena: $newPassword\n";
+    echo "  Nuevo hash:       $newHash\n\n";
+
+    $stmt2 = $pdo->query("SELECT password FROM usuarios WHERE email = 'admin@inconel.com' LIMIT 1");
+    $row2  = $stmt2->fetch(PDO::FETCH_ASSOC);
+    $ok    = password_verify($newPassword, $row2['password']);
+    echo "Verificacion con password_verify(): " . ($ok ? "OK - COINCIDE" : "ERROR - NO coincide") . "\n\n";
+
+    if ($ok) {
+        echo "===========================================\n";
+        echo "Ahora puedes iniciar sesion con:\n";
+        echo "  Email:      admin@inconel.com\n";
+        echo "  Contrasena: $newPassword\n";
+        echo "===========================================\n";
+        echo "\nELIMINA ESTE ARCHIVO despues de usarlo!\n";
+    }
+
+} catch (PDOException $e) {
+    echo "Error de BD: " . $e->getMessage() . "\n";
+}
+echo "</pre>";
