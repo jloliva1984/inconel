@@ -41,6 +41,14 @@ $breadcrumbs = [
                         </th>
                         <td><?= date('d/m/Y', strtotime($vivienda['fecha_instalacion_ac'])) ?></td>
                     </tr>
+                    <?php if (! empty($vivienda['fecha_arranque_ac'])): ?>
+                    <tr>
+                        <th class="bg-light">
+                            <i class="fas fa-bolt mr-2 text-success"></i>Fecha Arranque A/C
+                        </th>
+                        <td><?= date('d/m/Y', strtotime($vivienda['fecha_arranque_ac'])) ?></td>
+                    </tr>
+                    <?php endif; ?>
                     <tr>
                         <th class="bg-light">
                             <i class="fas fa-barcode mr-2"></i>N° Serie Handler

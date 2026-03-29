@@ -15,6 +15,7 @@ class ViviendaModel extends Model
     protected $allowedFields = [
         'direccion',
         'fecha_instalacion_ac',
+        'fecha_arranque_ac',
         'serie_handler',
         'serie_condenser',
         'fecha_venta',
@@ -70,7 +71,7 @@ class ViviendaModel extends Model
     public function getDatatableData(array $params): array
     {
         $builder = $this->db->table('viviendas v')
-            ->select("v.id, v.direccion, v.fecha_instalacion_ac, v.serie_handler,
+            ->select("v.id, v.direccion, v.fecha_instalacion_ac, v.fecha_arranque_ac, v.serie_handler,
                       v.serie_condenser, v.fecha_venta,
                       CONCAT(u.nombre, ' ', u.apellido) AS tecnico,
                       v.created_at,

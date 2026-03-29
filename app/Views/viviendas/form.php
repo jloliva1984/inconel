@@ -47,7 +47,7 @@ $breadcrumbs = [
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">
                                     <i class="fas fa-snowflake mr-1 text-info"></i>
@@ -58,7 +58,18 @@ $breadcrumbs = [
                                        required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-bolt mr-1 text-success"></i>
+                                    Fecha Arranque A/C
+                                    <small class="text-muted">(opcional)</small>
+                                </label>
+                                <input type="date" name="fecha_arranque_ac" class="form-control"
+                                       value="<?= old('fecha_arranque_ac', $vivienda['fecha_arranque_ac'] ?? '') ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">
                                     <i class="fas fa-calendar-check mr-1 text-success"></i>

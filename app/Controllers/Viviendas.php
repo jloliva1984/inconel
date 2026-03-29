@@ -83,6 +83,7 @@ class Viviendas extends BaseController
         $data = [
             'direccion'            => $this->request->getPost('direccion'),
             'fecha_instalacion_ac' => $this->request->getPost('fecha_instalacion_ac'),
+            'fecha_arranque_ac'    => $this->request->getPost('fecha_arranque_ac') ?: null,
             'serie_handler'        => $this->request->getPost('serie_handler'),
             'serie_condenser'      => $this->request->getPost('serie_condenser'),
             'fecha_venta'          => $this->request->getPost('fecha_venta'),
@@ -167,6 +168,7 @@ class Viviendas extends BaseController
         $data = [
             'direccion'            => $this->request->getPost('direccion'),
             'fecha_instalacion_ac' => $this->request->getPost('fecha_instalacion_ac'),
+            'fecha_arranque_ac'    => $this->request->getPost('fecha_arranque_ac') ?: null,
             'serie_handler'        => $this->request->getPost('serie_handler'),
             'serie_condenser'      => $this->request->getPost('serie_condenser'),
             'fecha_venta'          => $this->request->getPost('fecha_venta'),
