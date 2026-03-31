@@ -29,22 +29,10 @@ class ViviendaModel extends Model
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    protected $validationRules = [
-        'direccion'            => 'required|min_length[5]|max_length[300]',
-        'fecha_instalacion_ac' => 'required|valid_date',
-        'serie_handler'        => 'required|max_length[100]',
-        'serie_condenser'      => 'required|max_length[100]',
-        'tecnico_id'           => 'required|integer',
-    ];
+    protected $skipValidation = true;
 
-    protected $validationMessages = [
-        'direccion'            => ['required' => 'La dirección es requerida.'],
-        'fecha_instalacion_ac' => ['required' => 'La fecha de instalación es requerida.'],
-        'serie_handler'        => ['required' => 'El número de serie del handler es requerido.'],
-        'serie_condenser'      => ['required' => 'El número de serie del condenser es requerido.'],
-        'fecha_venta'          => ['required' => 'La fecha de venta es requerida.'],
-        'tecnico_id'           => ['required' => 'El técnico es requerido.'],
-    ];
+    protected $validationRules    = [];
+    protected $validationMessages = [];
 
     /**
      * Get viviendas with technician name (JOIN)
