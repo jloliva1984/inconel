@@ -34,7 +34,6 @@ class ViviendaModel extends Model
         'fecha_instalacion_ac' => 'required|valid_date',
         'serie_handler'        => 'required|max_length[100]',
         'serie_condenser'      => 'required|max_length[100]',
-        'fecha_venta'          => 'required|valid_date',
         'tecnico_id'           => 'required|integer',
     ];
 

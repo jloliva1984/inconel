@@ -73,12 +73,11 @@ $breadcrumbs = [
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">
                                     <i class="fas fa-calendar-check mr-1 text-success"></i>
-                                    Fecha de Venta <span class="text-danger">*</span>
+                                    Fecha de Venta
                                     <small class="text-muted">(inicia garantía)</small>
                                 </label>
                                 <input type="date" name="fecha_venta" class="form-control"
-                                       value="<?= old('fecha_venta', $vivienda['fecha_venta'] ?? '') ?>"
-                                       required>
+                                       value="<?= old('fecha_venta', $vivienda['fecha_venta'] ?? '') ?>">
                             </div>
                         </div>
                     </div>

@@ -70,7 +70,6 @@ class Viviendas extends BaseController
             'fecha_instalacion_ac' => 'required',
             'serie_handler'        => 'required|max_length[100]',
             'serie_condenser'      => 'required|max_length[100]',
-            'fecha_venta'          => 'required',
             'tecnico_id'           => 'required|integer',
         ];
 
@@ -86,7 +85,7 @@ class Viviendas extends BaseController
             'fecha_arranque_ac'    => $this->request->getPost('fecha_arranque_ac') ?: null,
             'serie_handler'        => $this->request->getPost('serie_handler'),
             'serie_condenser'      => $this->request->getPost('serie_condenser'),
-            'fecha_venta'          => $this->request->getPost('fecha_venta'),
+            'fecha_venta'          => $this->request->getPost('fecha_venta') ?: null,
             'tecnico_id'           => (int) $this->request->getPost('tecnico_id'),
             'notas'                => $this->request->getPost('notas'),
         ];
@@ -155,7 +154,6 @@ class Viviendas extends BaseController
             'fecha_instalacion_ac' => 'required',
             'serie_handler'        => 'required|max_length[100]',
             'serie_condenser'      => 'required|max_length[100]',
-            'fecha_venta'          => 'required',
             'tecnico_id'           => 'required|integer',
         ];
 
@@ -171,7 +169,7 @@ class Viviendas extends BaseController
             'fecha_arranque_ac'    => $this->request->getPost('fecha_arranque_ac') ?: null,
             'serie_handler'        => $this->request->getPost('serie_handler'),
             'serie_condenser'      => $this->request->getPost('serie_condenser'),
-            'fecha_venta'          => $this->request->getPost('fecha_venta'),
+            'fecha_venta'          => $this->request->getPost('fecha_venta') ?: null,
             'tecnico_id'           => (int) $this->request->getPost('tecnico_id'),
             'notas'                => $this->request->getPost('notas'),
         ];
