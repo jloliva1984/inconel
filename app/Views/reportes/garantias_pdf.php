@@ -51,11 +51,11 @@ tr:nth-child(even) { background: #f9f9f9; }
         <tr>
             <td><?= $i+1 ?></td>
             <td><?= esc(substr($v['direccion'], 0, 35)) ?></td>
-            <td><?= date('d/m/Y', strtotime($v['fecha_venta'])) ?></td>
+            <td><?= date('m/d/Y', strtotime($v['fecha_venta'])) ?></td>
             <td><?= esc($v['tecnico']) ?></td>
-            <td><?= date('d/m/Y', strtotime($v['vencimiento_mano_obra'])) ?></td>
+            <td><?= date('m/d/Y', strtotime($v['vencimiento_mano_obra'])) ?></td>
             <td><span class="s <?= $clsL ?>"><?= $txtL ?></span></td>
-            <td><?= date('d/m/Y', strtotime($v['vencimiento_equipamiento'])) ?></td>
+            <td><?= date('m/d/Y', strtotime($v['vencimiento_equipamiento'])) ?></td>
             <td><span class="s <?= $clsE ?>"><?= $txtE ?></span></td>
         </tr>
         <?php endforeach; ?>

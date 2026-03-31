@@ -167,7 +167,7 @@ $breadcrumbs = [
                                         <?= esc(substr($v['direccion'], 0, 45)) ?><?= strlen($v['direccion']) > 45 ? '...' : '' ?>
                                     </a>
                                 </td>
-                                <td><?= date('d/m/Y', strtotime($v['fecha_venta'])) ?></td>
+                                <td><?= date('m/d/Y', strtotime($v['fecha_venta'])) ?></td>
                                 <td><?= esc($v['tecnico']) ?></td>
                                 <td><?= warrantyBadge($v['garantia_mano_obra']) ?></td>
                             </tr>
@@ -203,7 +203,7 @@ $breadcrumbs = [
                                 <?= esc(substr($v['direccion'], 0, 35)) ?>...
                             </a>
                             <small class="text-muted">
-                                Vence: <?= date('d/m/Y', strtotime($v['vencimiento_labor'])) ?>
+                                Vence: <?= date('m/d/Y', strtotime($v['vencimiento_labor'])) ?>
                             </small>
                         </div>
                         <span class="badge bg-warning text-dark">

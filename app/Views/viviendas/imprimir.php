@@ -68,10 +68,10 @@
             <tr>
                 <td><?= $i + 1 ?></td>
                 <td><?= esc($v['direccion']) ?></td>
-                <td><?= date('d/m/Y', strtotime($v['fecha_instalacion_ac'])) ?></td>
+                <td><?= date('m/d/Y', strtotime($v['fecha_instalacion_ac'])) ?></td>
                 <td><?= esc($v['serie_handler']) ?></td>
                 <td><?= esc($v['serie_condenser']) ?></td>
-                <td><?= date('d/m/Y', strtotime($v['fecha_venta'])) ?></td>
+                <td><?= date('m/d/Y', strtotime($v['fecha_venta'])) ?></td>
                 <td><?= esc($v['tecnico_nombre_completo']) ?></td>
                 <td><span class="badge badge-<?= $classL ?>"><?= $stL ?></span></td>
                 <td><span class="badge badge-<?= $classE ?>"><?= $stE ?></span></td>

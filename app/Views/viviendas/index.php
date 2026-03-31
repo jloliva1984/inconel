@@ -83,7 +83,7 @@ $(function() {
                 render: function(data) {
                     if (!data) return '-';
                     const d = new Date(data + 'T00:00:00');
-                    return d.toLocaleDateString('es-ES');
+                    return d.toLocaleDateString('en-US');
                 }
             },
             { data: 'serie_handler' },
@@ -93,7 +93,7 @@ $(function() {
                 render: function(data) {
                     if (!data) return '-';
                     const d = new Date(data + 'T00:00:00');
-                    return d.toLocaleDateString('es-ES');
+                    return d.toLocaleDateString('en-US');
                 }
             },
             { data: 'tecnico' },

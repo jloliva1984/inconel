@@ -235,7 +235,7 @@ class Viviendas extends BaseController
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         $sheet->mergeCells('A2:H2');
-        $sheet->setCellValue('A2', 'Generado el: ' . date('d/m/Y H:i:s'));
+        $sheet->setCellValue('A2', 'Generado el: ' . date('m/d/Y H:i:s'));
         $sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         // Headers
@@ -283,7 +283,7 @@ class Viviendas extends BaseController
     public function exportarPdf(): void
     {
         $viviendas = $this->model->getWithTecnico();
-        $html      = view('viviendas/pdf', ['viviendas' => $viviendas, 'fecha' => date('d/m/Y H:i:s')], ['saveData' => true]);
+        $html      = view('viviendas/pdf', ['viviendas' => $viviendas, 'fecha' => date('m/d/Y H:i:s')], ['saveData' => true]);
 
         $mpdf = new \Mpdf\Mpdf([
             'mode'        => 'utf-8',
@@ -310,7 +310,7 @@ class Viviendas extends BaseController
         return view('viviendas/imprimir', [
             'title'     => 'Imprimir Viviendas',
             'viviendas' => $viviendas,
-            'fecha'     => date('d/m/Y H:i:s'),
+            'fecha'     => date('m/d/Y H:i:s'),
         ]);
     }
 

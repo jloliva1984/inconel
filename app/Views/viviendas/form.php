@@ -140,8 +140,8 @@ $breadcrumbs = [
                     $fechaVenta = old('fecha_venta', $vivienda['fecha_venta'] ?? null);
                     if ($fechaVenta):
                         $fv      = new DateTime($fechaVenta);
-                        $labor   = (clone $fv)->modify('+1 year')->format('d/m/Y');
-                        $equip   = (clone $fv)->modify('+10 years')->format('d/m/Y');
+                        $labor   = (clone $fv)->modify('+1 year')->format('m/d/Y');
+                        $equip   = (clone $fv)->modify('+10 years')->format('m/d/Y');
                     ?>
                     <div class="alert alert-info">
                         <strong><i class="fas fa-shield-alt mr-2"></i>Garantías calculadas:</strong>
@@ -184,7 +184,7 @@ $(function() {
         const labor = new Date(d); labor.setFullYear(labor.getFullYear() + 1);
         const equip = new Date(d); equip.setFullYear(equip.getFullYear() + 10);
 
-        const fmt = (dt) => dt.toLocaleDateString('es-ES', {day:'2-digit',month:'2-digit',year:'numeric'});
+        const fmt = (dt) => dt.toLocaleDateString('en-US', {month:'2-digit',day:'2-digit',year:'numeric'});
 
         if ($('#warranty-info').length === 0) {
             $('[name="notas"]').closest('.mb-4').before(

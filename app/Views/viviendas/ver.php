@@ -39,14 +39,14 @@ $breadcrumbs = [
                         <th class="bg-light">
                             <i class="fas fa-snowflake mr-2 text-info"></i>Fecha Instalación A/C
                         </th>
-                        <td><?= date('d/m/Y', strtotime($vivienda['fecha_instalacion_ac'])) ?></td>
+                        <td><?= date('m/d/Y', strtotime($vivienda['fecha_instalacion_ac'])) ?></td>
                     </tr>
                     <?php if (! empty($vivienda['fecha_arranque_ac'])): ?>
                     <tr>
                         <th class="bg-light">
                             <i class="fas fa-bolt mr-2 text-success"></i>Fecha Arranque A/C
                         </th>
-                        <td><?= date('d/m/Y', strtotime($vivienda['fecha_arranque_ac'])) ?></td>
+                        <td><?= date('m/d/Y', strtotime($vivienda['fecha_arranque_ac'])) ?></td>
                     </tr>
                     <?php endif; ?>
                     <tr>
@@ -66,7 +66,7 @@ $breadcrumbs = [
                         <th class="bg-light">
                             <i class="fas fa-calendar-check mr-2 text-success"></i>Fecha de Venta
                         </th>
-                        <td><?= date('d/m/Y', strtotime($vivienda['fecha_venta'])) ?></td>
+                        <td><?= date('m/d/Y', strtotime($vivienda['fecha_venta'])) ?></td>
                     </tr>
                     <?php endif; ?>
                     <tr>
@@ -85,7 +85,7 @@ $breadcrumbs = [
                     <?php endif; ?>
                     <tr>
                         <th class="bg-light"><i class="fas fa-clock mr-2"></i>Registrado</th>
-                        <td><?= date('d/m/Y H:i', strtotime($vivienda['created_at'])) ?></td>
+                        <td><?= date('m/d/Y H:i', strtotime($vivienda['created_at'])) ?></td>
                     </tr>
                 </table>
             </div>
@@ -128,8 +128,8 @@ $breadcrumbs = [
             <div class="card-body text-center">
                 <div class="badge bg-<?= $laborClass ?> fs-5 px-4 py-2 mb-3"><?= $laborText ?></div>
                 <table class="table table-sm table-bordered mt-2">
-                    <tr><th>Inicio</th><td><?= date('d/m/Y', strtotime($vivienda['fecha_venta'])) ?></td></tr>
-                    <tr><th>Vencimiento</th><td><?= date('d/m/Y', strtotime($vivienda['vencimiento_labor'])) ?></td></tr>
+                    <tr><th>Inicio</th><td><?= date('m/d/Y', strtotime($vivienda['fecha_venta'])) ?></td></tr>
+                    <tr><th>Vencimiento</th><td><?= date('m/d/Y', strtotime($vivienda['vencimiento_labor'])) ?></td></tr>
                     <tr>
                         <th>Días</th>
                         <td>
@@ -154,8 +154,8 @@ $breadcrumbs = [
             <div class="card-body text-center">
                 <div class="badge bg-<?= $equipClass ?> fs-5 px-4 py-2 mb-3"><?= $equipText ?></div>
                 <table class="table table-sm table-bordered mt-2">
-                    <tr><th>Inicio</th><td><?= date('d/m/Y', strtotime($vivienda['fecha_venta'])) ?></td></tr>
-                    <tr><th>Vencimiento</th><td><?= date('d/m/Y', strtotime($vivienda['vencimiento_equipamiento'])) ?></td></tr>
+                    <tr><th>Inicio</th><td><?= date('m/d/Y', strtotime($vivienda['fecha_venta'])) ?></td></tr>
+                    <tr><th>Vencimiento</th><td><?= date('m/d/Y', strtotime($vivienda['vencimiento_equipamiento'])) ?></td></tr>
                     <tr>
                         <th>Días</th>
                         <td>

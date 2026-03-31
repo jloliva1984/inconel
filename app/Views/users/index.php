@@ -85,14 +85,14 @@ $(function() {
                 render: function(data) {
                     if (!data) return '<span class="text-muted">Nunca</span>';
                     const d = new Date(data);
-                    return d.toLocaleString('es-ES');
+                    return d.toLocaleString('en-US');
                 }
             },
             {
                 data: 'created_at',
                 render: function(data) {
                     const d = new Date(data);
-                    return d.toLocaleDateString('es-ES');
+                    return d.toLocaleDateString('en-US');
                 }
             },
             { data: 'acciones', className: 'text-center', orderable: false, searchable: false },

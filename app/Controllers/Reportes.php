@@ -75,7 +75,7 @@ class Reportes extends BaseController
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         $sheet->mergeCells('A2:J2');
-        $sheet->setCellValue('A2', 'Generado el: ' . date('d/m/Y H:i:s'));
+        $sheet->setCellValue('A2', 'Generado el: ' . date('m/d/Y H:i:s'));
 
         // Legend
         $sheet->mergeCells('A3:J3');
@@ -144,7 +144,7 @@ class Reportes extends BaseController
         $viviendas = $this->model->getWarrantyReport($filters);
         $html      = view('reportes/garantias_pdf', [
             'viviendas' => $viviendas,
-            'fecha'     => date('d/m/Y H:i:s'),
+            'fecha'     => date('m/d/Y H:i:s'),
         ], ['saveData' => true]);
 
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L', 'margin_top' => 15]);
@@ -162,7 +162,7 @@ class Reportes extends BaseController
         return view('reportes/garantias_imprimir', [
             'title'     => 'Reporte de Garantías',
             'viviendas' => $viviendas,
-            'fecha'     => date('d/m/Y H:i:s'),
+            'fecha'     => date('m/d/Y H:i:s'),
         ]);
     }
 
@@ -242,7 +242,7 @@ class Reportes extends BaseController
         $data = $this->model->getByTecnicoDatatable([]);
         $html = view('reportes/tecnico_pdf', [
             'viviendas' => $data['data'],
-            'fecha'     => date('d/m/Y H:i:s'),
+            'fecha'     => date('m/d/Y H:i:s'),
         ], ['saveData' => true]);
 
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_top' => 15]);
@@ -351,7 +351,7 @@ class Reportes extends BaseController
         $html = view('reportes/resumen_pdf', [
             'stats'    => $stats,
             'tecnicos' => $tecnicos['data'],
-            'fecha'    => date('d/m/Y H:i:s'),
+            'fecha'    => date('m/d/Y H:i:s'),
         ], ['saveData' => true]);
 
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_top' => 15]);

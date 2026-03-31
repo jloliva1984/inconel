@@ -89,7 +89,7 @@ $(function() {
                 data: 'fecha_venta',
                 render: function(data) {
                     const d = new Date(data + 'T00:00:00');
-                    return d.toLocaleDateString('es-ES');
+                    return d.toLocaleDateString('en-US');
                 }
             },
             { data: 'tecnico' },
@@ -97,7 +97,7 @@ $(function() {
                 data: 'vencimiento_mano_obra',
                 render: function(data) {
                     const d = new Date(data + 'T00:00:00');
-                    return d.toLocaleDateString('es-ES');
+                    return d.toLocaleDateString('en-US');
                 }
             },
             {
@@ -109,7 +109,7 @@ $(function() {
                 data: 'vencimiento_equipamiento',
                 render: function(data) {
                     const d = new Date(data + 'T00:00:00');
-                    return d.toLocaleDateString('es-ES');
+                    return d.toLocaleDateString('en-US');
                 }
             },
             {
