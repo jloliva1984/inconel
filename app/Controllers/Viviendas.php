@@ -103,19 +103,28 @@ class Viviendas extends BaseController
             return redirect()->to('/viviendas')->with('error', 'Vivienda no encontrada.');
         }
 
-        // Calculate warranties
-        $fechaVenta     = new \DateTime($vivienda['fecha_venta']);
-        $hoy            = new \DateTime();
+        // Calculate warranties (only if fecha_venta is set)
+        if (! empty($vivienda['fecha_venta'])) {
+            $fechaVenta = new \DateTime($vivienda['fecha_venta']);
+            $hoy        = new \DateTime();
 
-        $vencimientoLabor = (clone $fechaVenta)->modify('+1 year');
-        $vencimientoEquip = (clone $fechaVenta)->modify('+10 years');
+            $vencimientoLabor = (clone $fechaVenta)->modify('+1 year');
+            $vencimientoEquip = (clone $fechaVenta)->modify('+10 years');
 
-        $vivienda['vencimiento_labor']         = $vencimientoLabor->format('Y-m-d');
-        $vivienda['vencimiento_equipamiento']  = $vencimientoEquip->format('Y-m-d');
-        $vivienda['dias_labor']                = (int) $hoy->diff($vencimientoLabor)->format('%r%a');
-        $vivienda['dias_equipamiento']         = (int) $hoy->diff($vencimientoEquip)->format('%r%a');
-        $vivienda['garantia_labor']            = $vivienda['dias_labor'] > 0 ? ($vivienda['dias_labor'] <= 30 ? 'por_vencer' : 'activa') : 'vencida';
-        $vivienda['garantia_equipamiento']     = $vivienda['dias_equipamiento'] > 0 ? ($vivienda['dias_equipamiento'] <= 90 ? 'por_vencer' : 'activa') : 'vencida';
+            $vivienda['vencimiento_labor']        = $vencimientoLabor->format('Y-m-d');
+            $vivienda['vencimiento_equipamiento'] = $vencimientoEquip->format('Y-m-d');
+            $vivienda['dias_labor']               = (int) $hoy->diff($vencimientoLabor)->format('%r%a');
+            $vivienda['dias_equipamiento']        = (int) $hoy->diff($vencimientoEquip)->format('%r%a');
+            $vivienda['garantia_labor']           = $vivienda['dias_labor'] > 0 ? ($vivienda['dias_labor'] <= 30 ? 'por_vencer' : 'activa') : 'vencida';
+            $vivienda['garantia_equipamiento']    = $vivienda['dias_equipamiento'] > 0 ? ($vivienda['dias_equipamiento'] <= 90 ? 'por_vencer' : 'activa') : 'vencida';
+        } else {
+            $vivienda['vencimiento_labor']        = null;
+            $vivienda['vencimiento_equipamiento'] = null;
+            $vivienda['dias_labor']               = null;
+            $vivienda['dias_equipamiento']        = null;
+            $vivienda['garantia_labor']           = 'sin_fecha';
+            $vivienda['garantia_equipamiento']    = 'sin_fecha';
+        }
 
         return view('viviendas/ver', [
             'title'    => 'Ver Vivienda - Inconel Building',
