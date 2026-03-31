@@ -103,8 +103,10 @@ class Viviendas extends BaseController
             return redirect()->to('/viviendas')->with('error', 'Vivienda no encontrada.');
         }
 
-        // Calculate warranties (only if fecha_venta is set)
-        if (! empty($vivienda['fecha_venta'])) {
+        // Calculate warranties (only if fecha_venta is set and valid)
+        $fechaVentaValida = ! empty($vivienda['fecha_venta']) && $vivienda['fecha_venta'] !== '0000-00-00';
+
+        if ($fechaVentaValida) {
             $fechaVenta = new \DateTime($vivienda['fecha_venta']);
             $hoy        = new \DateTime();
 

@@ -61,7 +61,7 @@ $breadcrumbs = [
                         </th>
                         <td><code><?= esc($vivienda['serie_condenser']) ?></code></td>
                     </tr>
-                    <?php if (! empty($vivienda['fecha_venta'])): ?>
+                    <?php if (! empty($vivienda['fecha_venta']) && $vivienda['fecha_venta'] !== '0000-00-00'): ?>
                     <tr>
                         <th class="bg-light">
                             <i class="fas fa-calendar-check mr-2 text-success"></i>Fecha de Venta
