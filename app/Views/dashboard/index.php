@@ -167,7 +167,7 @@ $breadcrumbs = [
                                         <?= esc(substr($v['direccion'], 0, 45)) ?><?= strlen($v['direccion']) > 45 ? '...' : '' ?>
                                     </a>
                                 </td>
-                                <td><?= date('m/d/Y', strtotime($v['fecha_venta'])) ?></td>
+                                <td><?= (! empty($v['fecha_venta']) && $v['fecha_venta'] !== '0000-00-00') ? date('m/d/Y', strtotime($v['fecha_venta'])) : '<span class="text-muted">—</span>' ?></td>
                                 <td><?= esc($v['tecnico']) ?></td>
                                 <td><?= warrantyBadge($v['garantia_mano_obra']) ?></td>
                             </tr>
